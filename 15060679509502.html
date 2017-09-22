@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      CentOS 搭建 Node.js 环境 - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/9/22</small>
+  </p>
+  <h1>
+    CentOS 搭建 Node.js 环境
+  </h1>
+
+  <article>
+    <h2 id="toc_0">1. 安装 Node.js 环境</h2>
+
+<p>Node.js 是运行在服务端的 JavaScript, 是基于 Chrome JavaScript V8 引擎建立的平台。</p>
+
+<h3 id="toc_1">下载并安装 Node.js</h3>
+
+<p>下载最新的稳定版 v6.10.3 到本地：</p>
+
+<pre><code class="language-bash">wget https://nodejs.org/dist/v6.10.3/node-v6.10.3-linux-x64.tar.xz
+</code></pre>
+
+<p>下载完成后, 将其解压：</p>
+
+<pre><code class="language-bash">tar xvJf node-v6.10.3-linux-x64.tar.xz
+</code></pre>
+
+<p>将解压的 <code>Node.js</code> 目录移动到 <code>/usr/local</code> 目录下：</p>
+
+<pre><code class="language-bash">mv node-v6.10.3-linux-x64 /usr/local/node-v6
+</code></pre>
+
+<p>配置 <code>node</code> 软链接到 <code>/bin</code> 目录：</p>
+
+<pre><code class="language-bash">ln -s /usr/local/node-v6/bin/node /bin/node
+</code></pre>
+
+<h2 id="toc_2">2. 配置和使用 npm</h2>
+
+<h3 id="toc_3">配置 npm：</h3>
+
+<p>npm 是 Node.js 的包管理和分发工具。它可以让 Node.js 开发者能够更加轻松的共享代码和共用代码片段<br/>
+下载 node 的压缩包中已经包含了 npm , 我们只需要将其软链接到 bin 目录下即可：</p>
+
+<pre><code class="language-bash">ln -s /usr/local/node-v6/bin/npm /bin/npm
+</code></pre>
+
+<h3 id="toc_4">配置环境变量</h3>
+
+<p>将 /usr/local/node-v6/bin 目录添加到 $PATH 环境变量中可以方便地使用通过 npm 全局安装的第三方工具：</p>
+
+<pre><code class="language-bash">echo &#39;export PATH=/usr/local/node-v6/bin:$PATH&#39; &gt;&gt; /etc/profile
+</code></pre>
+
+<p>生效环境变量：</p>
+
+<pre><code class="language-bash">source /etc/profile
+</code></pre>
+
+<h3 id="toc_5">使用 npm</h3>
+
+<p>通过 npm 安装进程管理模块 forever</p>
+
+<pre><code class="language-bash">npm install forever -g
+</code></pre>
+  
+  </article>
+</section>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>
