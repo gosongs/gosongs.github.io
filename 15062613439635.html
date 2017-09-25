@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      设置mysql密码报错 - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/9/24</small>
+  </p>
+  <h1>
+    设置mysql密码报错
+  </h1>
+
+  <article>
+    <p>报错日志：</p>
+
+<pre><code>error: &#39;Access denied for user &#39;root&#39;@&#39;localhost&#39; (using password: NO)&#39;
+</code></pre>
+
+<p>解决办法：</p>
+
+<p>先结束mysql进程。</p>
+
+<pre><code class="language-bash"># 安全模式启动
+/usr/bin/mysqld_safe --skip-grant-tables &gt;/dev/null 2&gt;&amp;1 &amp;
+
+# 进入mysql
+/usr/bin/mysql -u root mysql
+
+# 修改密码
+update user set password = Password(&#39;newpassword&#39;) where User = &#39;root&#39;;
+</code></pre>
+  
+  </article>
+</section>
+<br><br><br>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>

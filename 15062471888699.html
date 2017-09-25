@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      CentOS 搭建 Firekylin Blog - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/9/24</small>
+  </p>
+  <h1>
+    CentOS 搭建 Firekylin Blog
+  </h1>
+
+  <article>
+    <h2 id="toc_0">安装 Node.js</h2>
+
+<p>使用 yum 命令安装 Node.js</p>
+
+<pre><code class="language-bash">yum install nodejs -y
+</code></pre>
+
+<p>使用 NPM 安装 PM2</p>
+
+<p>通过 NPM 安装进程管理模块 PM2。它是 Node.js 的一个进程管理模块，之后我们会使用它来管理我们的个人网站进程。</p>
+
+<pre><code class="language-bash">npm install pm2 -g
+</code></pre>
+
+<h2 id="toc_1">安装 mysql：</h2>
+
+<pre><code class="language-bash">wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
+yum install mysql-community-server -y
+</code></pre>
+
+<p>启动 mysql：</p>
+
+<pre><code class="language-bash">service mysqld restart
+</code></pre>
+
+<p>设置 MySQL 账户 root 密码：</p>
+
+<pre><code>/usr/bin/mysqladmin -u root password &#39;Liuzhiyuan1993**&#39;
+</code></pre>
+
+<h2 id="toc_2">安装 Nginx</h2>
+
+<p>在 CentOS 上，可直接使用 [yum] 来安装 Nginx</p>
+
+<pre><code class="language-bash">yum install nginx -y
+</code></pre>
+
+<h2 id="toc_3">安装 Firekylin</h2>
+
+<p>在服务器上下载安装包：</p>
+
+<pre><code class="language-bash">wget https://firekylin.org/release/latest.tar.gz
+</code></pre>
+
+<p>解压安装包</p>
+
+<pre><code class="language-bash">tar zvxf latest.tar.gz
+</code></pre>
+
+<p>安装程序依赖</p>
+
+<pre><code class="language-bash">cd firekylin
+npm install
+</code></pre>
+
+<p>复制项目下的 <code>pm2_default.json</code> 文件生成新文件 <code>pm2.json</code>：</p>
+
+<pre><code class="language-bash">cp pm2_default.json pm2.json
+</code></pre>
+
+<p>修改 <code>pm2.json</code> 文件中的 <code>cwd</code> 配置值为项目的当前路径 <code>/root/firekylin</code>：</p>
+
+<pre><code>{
+  &quot;apps&quot;: [{
+    &quot;name&quot;: &quot;firekylin&quot;,
+    &quot;script&quot;: &quot;www/production.js&quot;,
+    &quot;cwd&quot;: &quot;/root/firekylin&quot;,
+    &quot;exec_mode&quot;: &quot;fork&quot;,
+    &quot;max_memory_restart&quot;: &quot;1G&quot;,
+    &quot;autorestart&quot;: true,
+    &quot;node_args&quot;: [],
+    &quot;args&quot;: [],
+    &quot;env&quot;: {
+
+    }
+  }]
+}
+</code></pre>
+
+<p>然后通过以下命令启动项目</p>
+
+<pre><code class="language-bash">pm2 startOrReload pm2.json
+</code></pre>
+
+<p>Firekylin 已经启动成功，使用浏览器直接访问 http://&lt;您的 CVM IP 地址&gt;:8360/ 即可看到 Firekylin 的配置界面。</p>
+  
+  </article>
+</section>
+<br><br><br>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>
