@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      使用 n 管理 Node.js 版本 - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/9/26</small>
+  </p>
+  <h1>
+    使用 n 管理 Node.js 版本
+  </h1>
+
+  <article>
+    <p><a href="https://github.com/tj/n">n</a> 是 Node 的一个模块，用来管理 Node 版本。</p>
+
+<h2 id="toc_0">安装</h2>
+
+<pre><code class="language-bash">npm install n -g
+</code></pre>
+
+<h2 id="toc_1">基本命令</h2>
+
+<p>输入 <code>n --help</code> 查看帮助文档：</p>
+
+<pre><code class="language-bash">  Usage: n [options/env] [COMMAND] [args]
+
+  Environments:
+    n [COMMAND] [args]            Uses default env (node)
+    n io [COMMAND]                Sets env as io
+    n project [COMMAND]           Uses custom env-variables to use non-official sources
+
+  Commands:
+
+    n                              查看本机安装的 Node
+    n latest                       安装最新版
+    n -a x86 latest                安装最新版（32位）
+    n stable                       安装稳定版
+    n lts                          安装最新长效版（LTS：Long-term Support）
+    n &lt;version&gt;                    安装某个版本，比如：n 6.2.1
+    n use &lt;version&gt; [args ...]     Execute node &lt;version&gt; with [args ...]
+    n bin &lt;version&gt;                Output bin path for &lt;version&gt;
+    n rm &lt;version ...&gt;             删除某个版本，比如：n rm 6.2.1
+    n prune                        删除除了当前版本之外的所有版本
+    n --latest                     查看最新版
+    n --stable                     查看稳定版
+    n --lts                        查看长效版
+    n ls                           查看可供选择的 Node 版本
+
+  (iojs):                          n 同时支持 io.js
+    n io latest                    Install or activate the latest iojs release
+    n io -a x86 latest             As above but force 32 bit architecture
+    n io &lt;version&gt;                 Install iojs &lt;version&gt;
+    n io use &lt;version&gt; [args ...]  Execute iojs &lt;version&gt; with [args ...]
+    n io bin &lt;version&gt;             Output bin path for &lt;version&gt;
+    n io rm &lt;version ...&gt;          Remove the given version(s)
+    n io --latest                  Output the latest iojs version available
+    n io ls                        Output the versions of iojs available
+
+  Options:
+
+    -V, --version   查看版本号
+    -h, --help      查看说明文档
+    -q, --quiet     静默输出
+    -d, --download  仅下载，不安装
+    -a, --arch      Override system architecture
+
+  Aliases:
+
+    which   bin
+    use     as
+    list    ls
+    -       rm
+</code></pre>
+  
+  </article>
+</section>
+<br><br><br>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>
