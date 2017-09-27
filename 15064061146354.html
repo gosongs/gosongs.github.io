@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      Vim 常用命令 - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/9/26</small>
+  </p>
+  <h1>
+    Vim 常用命令
+  </h1>
+
+  <article>
+    <h2 id="toc_0">光标移动</h2>
+
+<table>
+<thead>
+<tr>
+<th>操作指令</th>
+<th>具体内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>h或向左箭头(←)</td>
+<td>光标向左移动1个字符</td>
+</tr>
+<tr>
+<td>j或向下箭头(↓)</td>
+<td>光标向下移动1个字符</td>
+</tr>
+<tr>
+<td>k或向上箭头(↑)</td>
+<td>光标向上移动1个字符</td>
+</tr>
+<tr>
+<td>l或向右箭头(→)</td>
+<td>光标向右移动1个字符</td>
+</tr>
+<tr>
+<td>h或向左箭头(←)</td>
+<td>光标向左移动1个字符</td>
+</tr>
+<tr>
+<td></td>
+<td>对以上，若在指令前输入n则移动n位，如30j则表示向下移动30行</td>
+</tr>
+<tr>
+<td><code>[ctrl]+[f]</code></td>
+<td>向下移动一页</td>
+</tr>
+<tr>
+<td><code>[ctrl]+[b]</code></td>
+<td>向上移动一页</td>
+</tr>
+<tr>
+<td><code>[ctrl]+[d]</code></td>
+<td>向下移动半页</td>
+</tr>
+<tr>
+<td><code>[ctrl]+[u]</code></td>
+<td>向上移动半页</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>光标移动到非空格的下一列</td>
+</tr>
+<tr>
+<td><code>-</code></td>
+<td>光标移动到非空格的上一列</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>向右移动n位</td>
+</tr>
+<tr>
+<td><code>0</code> 或功能键 <code>[HOME]</code></td>
+<td>移动到这一行的最前面</td>
+</tr>
+<tr>
+<td><code>$</code> 或功能键 <code>[END]</code></td>
+<td>移动到这一行的最后面</td>
+</tr>
+<tr>
+<td><code>H</code></td>
+<td>移动到第一行第一个字符</td>
+</tr>
+<tr>
+<td>G或L</td>
+<td>移动到最后一行</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>移动到中间一行</td>
+</tr>
+<tr>
+<td><code>nG</code> 或 <code>:n</code></td>
+<td>移动到第n行</td>
+</tr>
+<tr>
+<td><code>gg</code></td>
+<td>移动到第一行</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_1">搜寻和替代</h2>
+
+<table>
+<thead>
+<tr>
+<th>操作指令</th>
+<th>具体内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>/word</code></td>
+<td>向下查询word字段</td>
+</tr>
+<tr>
+<td><code>?word</code></td>
+<td>向上查询word字段</td>
+</tr>
+<tr>
+<td><code>n</code></td>
+<td>向下重复上一个查询字段</td>
+</tr>
+<tr>
+<td><code>N</code></td>
+<td>向上重复上一个查询字段</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_2">删除、复制和粘贴</h2>
+
+<table>
+<thead>
+<tr>
+<th>操作指令</th>
+<th>具体内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>x</code></td>
+<td>向后删除一个字符</td>
+</tr>
+<tr>
+<td><code>X</code></td>
+<td>向前删除一个字符</td>
+</tr>
+<tr>
+<td><code>dd</code></td>
+<td>删除当前行</td>
+</tr>
+<tr>
+<td><code>ndd</code></td>
+<td>向下删除n行</td>
+</tr>
+<tr>
+<td><code>d1G</code></td>
+<td>删除光标所在到第一行数据</td>
+</tr>
+<tr>
+<td><code>dG</code></td>
+<td>删除光标所在到最后一行数据</td>
+</tr>
+<tr>
+<td><code>d$</code></td>
+<td>删除光标所在到本行的最后一个字符</td>
+</tr>
+<tr>
+<td><code>d0</code></td>
+<td>删除光标所在到本行的第一个字符</td>
+</tr>
+<tr>
+<td><code>yy</code></td>
+<td>复制当前行</td>
+</tr>
+<tr>
+<td><code>nyy</code></td>
+<td>向下复制n行</td>
+</tr>
+<tr>
+<td><code>y1G</code></td>
+<td>复制光标所在行到第一行的所有数据</td>
+</tr>
+<tr>
+<td><code>yG</code></td>
+<td>复制光标所在行到最后一行的所有数据</td>
+</tr>
+<tr>
+<td><code>y0</code></td>
+<td>复制光标到本行行首的所有数据</td>
+</tr>
+<tr>
+<td><code>y$</code></td>
+<td>复制光标到本行行尾的所有数据</td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>将复制数据粘贴在光标的下一行</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>将复制数据粘贴在光标的上一行</td>
+</tr>
+<tr>
+<td><code>J</code></td>
+<td>将光标所在行和下一行数据合成一行</td>
+</tr>
+<tr>
+<td><code>u</code></td>
+<td>复原上一个动作</td>
+</tr>
+<tr>
+<td><code>[ctrl]+r</code></td>
+<td>重做上一次动作</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_3">多文件编辑</h2>
+
+<table>
+<thead>
+<tr>
+<th>操作指令</th>
+<th>具体内容</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><code>vim filename1 filename2</code></td>
+<td>同一个窗口显示多个文件（打开后暂时只显示filename1的内容</td>
+</tr>
+<tr>
+<td><code>:n</code></td>
+<td>切换到下一个文件</td>
+</tr>
+<tr>
+<td><code>:N</code></td>
+<td>切换到上一个文件</td>
+</tr>
+<tr>
+<td><code>:n filename2</code></td>
+<td>切换到文件filename2</td>
+</tr>
+<tr>
+<td><code>:ls</code></td>
+<td>列出vim打开的所有文件的信息，包括文件名，buffer id等</td>
+</tr>
+<tr>
+<td><code>:b2</code></td>
+<td>切换到buffer id为2的buffer</td>
+</tr>
+<tr>
+<td><code>:bn</code></td>
+<td>切换到当前buffer的下一个buffer</td>
+</tr>
+<tr>
+<td><code>:bp</code></td>
+<td>切换当前buffer的前一个buffer</td>
+</tr>
+<tr>
+<td><code>:bd</code></td>
+<td>关闭当前buffer，对应文件也随之关闭</td>
+</tr>
+<tr>
+<td><code>:bd2</code></td>
+<td>关闭buffer id为2的buffer，对应文件也随之关闭</td>
+</tr>
+<tr>
+<td><code>:e file</code></td>
+<td>打开新文件，但不会分割窗口</td>
+</tr>
+<tr>
+<td><code>:sp file</code></td>
+<td>打开新文件，并且将会水平分割窗口</td>
+</tr>
+<tr>
+<td><code>:vsp file</code></td>
+<td>打开新文件，并且将会垂直分割窗口</td>
+</tr>
+</tbody>
+</table>
+  
+  </article>
+</section>
+<br><br><br>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>
