@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      初始化 Angular4 项目 - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/9/27</small>
+  </p>
+  <h1>
+    初始化 Angular4 项目
+  </h1>
+
+  <article>
+    <h2 id="toc_0">使用 angular-cli</h2>
+
+<pre><code class="language-bash"># 全局安装 angular-cli
+npm install -g @angular/cli
+
+# 初始化项目
+ng new ng4demo
+
+cd ng4demo
+
+# 安装依赖
+yarn install
+
+# 启动项目
+yarn start
+</code></pre>
+
+<p><a href="https://cli.angular.io/">angular-cli</a> 可选指令：</p>
+
+<ul>
+<li><a href="https://github.com/angular/angular-cli/wiki/new">ng new</a>：<code>ng new [name]</code> 创建一个 ng 新项目。</li>
+<li><a href="https://github.com/angular/angular-cli/wiki/serve">ng serve</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/generate">ng generate</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/lint">ng lint</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/test">ng test</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/e2e">ng e2e</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/build">ng build</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/config">ng get/ng set</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/doc">ng doc</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/eject">ng eject</a></li>
+<li><a href="https://github.com/angular/angular-cli/wiki/xi18n">ng xi18n</a></li>
+</ul>
+
+<h2 id="toc_1">整合 material2</h2>
+
+<p><a href="https://github.com/angular/material2/blob/master/guides/getting-started.md">官方教程</a>。</p>
+
+<p>第一步：安装依赖</p>
+
+<pre><code class="language-bash">@angular/material @angular/cdk
+</code></pre>
+
+<p>第二步：引入图标和主题</p>
+
+<p>在全局样式 <code>style.css</code> 中引入图标（可选）和material主题样式（必选）：</p>
+
+<pre><code class="language-css">/* style.css */
+@import &#39;~https://fonts.googleapis.com/icon?family=Material+Icons&#39;;
+@import &#39;~@angular/material/prebuilt-themes/deeppurple-amber.css&#39;;
+</code></pre>
+
+<p>第三步：手势支持（可选）</p>
+
+<pre><code class="language-bash">yarn add hammerjs
+</code></pre>
+
+<p>在项目入口 <code>main.ts</code> 中引入 <code>hammerjs</code>：</p>
+
+<pre><code class="language-javascript">import &#39;hammerjs&#39;
+</code></pre>
+
+<p>第四步：将material的模块注入到项目模块中</p>
+
+<p>修改 <code>app.modules.ts</code>：<br/>
+```javascript<br/>
+// app.modules.ts<br/>
+import { BrowserModule } from &#39;@angular/platform-browser&#39;;<br/>
+import { NgModule } from &#39;@angular/core&#39;;<br/>
+import { MdButtonModule } from &#39;@angular/material&#39;; // 引入button模块</p>
+
+<p>import { AppComponent } from &#39;./app.component&#39;;</p>
+
+<p>@NgModule({<br/>
+  declarations: [<br/>
+    AppComponent<br/>
+  ],<br/>
+  imports: [<br/>
+    BrowserModule,<br/>
+    MdButtonModule // 将button模块注入到app模块中<br/>
+  ],<br/>
+  providers: [],<br/>
+  bootstrap: [AppComponent]<br/>
+})<br/>
+export class AppModule { }<br/>
+```</p>
+
+<p>在 <code>app.component.html</code> 中使用上边注入的 <code>button</code> 模块：</p>
+
+<pre><code class="language-html">&lt;button md-button&gt;Click me!&lt;/button&gt;
+&lt;button md-button&gt;Click me!&lt;/button&gt;
+&lt;button md-button&gt;Click me!&lt;/button&gt;
+&lt;button md-button&gt;Click me!&lt;/button&gt;
+&lt;button md-button&gt;Click me!&lt;/button&gt;
+</code></pre>
+
+<h3 id="toc_2">注入模块</h3>
+  
+  </article>
+</section>
+<br><br><br>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>

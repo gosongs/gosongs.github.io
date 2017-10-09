@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      前端聚合站 - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/10/9</small>
+  </p>
+  <h1>
+    前端聚合站
+  </h1>
+
+  <article>
+    <p>通过RSS订阅, 可以让知识来找我们, 省去了大量搜索知识的时间. 同时将内容以统一的视觉效果展示出来.</p>
+
+<p>最近取消了很多RSS订阅:</p>
+
+<ul>
+<li>首先由很多作者是拒绝RSS订阅的, 比如: <a href="http://www.yinwang.org/blog-cn/2014/09/17/rss">RSS与三不主义</a>;</li>
+<li>体验极差的;</li>
+<li>订阅的内容不完整的;</li>
+<li>技术更替飞快, 内容过时的;</li>
+<li>内容是空洞、无意义的;</li>
+</ul>
+
+<h2 id="toc_0">目标</h2>
+
+<ol>
+<li>通过 Node.js 爬虫, 定时爬取感兴趣的博主, 筛选出时效性强、有意义的博文;</li>
+<li>内容存储在 mongoDB 数据库中;</li>
+<li>仅采集前端内容;</li>
+<li>仅采集过去六个月的内容;</li>
+<li>屏蔽广告、推广等, 专注于技术内容;</li>
+<li>HTML 转 Markdown 后存储;</li>
+</ol>
+
+<h2 id="toc_1">用到的包</h2>
+
+<ul>
+<li>MongoDB ORM: <a href="https://github.com/Automattic/mongoose">mongoose</a>;</li>
+<li>Node.js 爬虫框架: <a href="https://github.com/bda-research/node-crawler">node-crawler</a>;</li>
+<li>定时任务: <a href="https://github.com/node-schedule/node-schedule">node-schedule</a>;</li>
+<li>html 转 markdown: <a href="https://github.com/domchristie/to-markdown">to-markdown</a>;</li>
+</ul>
+
+<h2 id="toc_2">表设计</h2>
+
+<p>文章表 <code>Post</code>, 不设分类, 仅关注前端内容:</p>
+
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>数据类型</th>
+<th>含义</th>
+<th>备注</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>标题</td>
+<td>必填</td>
+</tr>
+<tr>
+<td>author</td>
+<td>String</td>
+<td>作者</td>
+<td>必填</td>
+</tr>
+<tr>
+<td>date</td>
+<td>String</td>
+<td>发布时间</td>
+<td>时间戳, 必填</td>
+</tr>
+<tr>
+<td>link</td>
+<td>String</td>
+<td>原文链接</td>
+<td>必填</td>
+</tr>
+<tr>
+<td>content</td>
+<td>String</td>
+<td>正文</td>
+<td>必填</td>
+</tr>
+<tr>
+<td>dislike</td>
+<td>Boolean</td>
+<td>不喜欢</td>
+<td>default: false</td>
+</tr>
+</tbody>
+</table>
+
+<p>黑名单表 <code>Dislike</code>, 手动标记的不感兴趣、无意义的博文链接:</p>
+
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>类型</th>
+<th>含义</th>
+<th>备注</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>link</td>
+<td>String</td>
+<td>链接</td>
+<td>不感兴趣的链接</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="toc_3">采集列表</h2>
+
+<pre><code class="language-javascript">var entrys = [
+    {
+        name: &#39;阮一峰的网络日志&#39;,
+        link: &#39;http://www.ruanyifeng.com/blog/javascript/&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;玉伯也叫射雕&#39;,
+        link: &#39;https://github.com/lifesinger/blog/issues&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;贺师俊&#39;,
+        link: &#39;https://github.com/hax/hax.github.com/issues&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;司徒正美&#39;,
+        link: &#39;https://github.com/FrankFang/best-chinese-front-end-blogs&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;PING4GOD&#39;,
+        link: &#39;http://pinggod.com/archives/&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;张云龙&#39;,
+        link: &#39;https://github.com/fouber/blog&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;徐飞&#39;,
+        link: &#39;https://github.com/xufei/blog/issues&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;黄峰达&#39;,
+        link: &#39;https://github.com/phodal/articles/issues&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;十年踪迹&#39;,
+        link: &#39;https://www.h5jun.com/archives/&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;xcatliu&#39;,
+        link: &#39;http://blog.xcatliu.com/tags/JavaScript/&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;张鑫旭&#39;,
+        link: &#39;http://www.zhangxinxu.com/wordpress/&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;Jerry Qu&#39;,
+        link: &#39;https://imququ.com/post/archives.html&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;神飞&#39;,
+        link: &#39;https://www.qianduan.net/&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;邱俊涛&#39;,
+        link: &#39;http://icodeit.org/blog/archives/&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;小胡子哥&#39;,
+        link: &#39;http://www.barretlee.com/blog/categories/JavaScript/&#39;,
+        memo: &#39;&#39;
+    },
+    {
+        name: &#39;&#39;,
+        link: &#39;&#39;,
+        memo: &#39;&#39;
+    }
+];
+</code></pre>
+  
+  </article>
+</section>
+<br><br><br>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>
