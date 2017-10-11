@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      JavaScript 中的 this 用法 - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/10/11</small>
+  </p>
+  <h1>
+    JavaScript 中的 this 用法
+  </h1>
+
+  <article>
+    <p><code>this</code> 是 Javascript 语言的一个关键字。<br/>
+它代表函数运行时，自动生成的一个内部对象，只能在函数内部使用。比如：</p>
+
+<pre><code class="language-javascript">function test(){
+    this.x = 1;
+}
+</code></pre>
+
+<p>随着函数使用场合的不同，this的值会发生变化。但是有一个总的原则，那就是this指的是，调用函数的那个对象。</p>
+
+<p>下面分四种情况，详细讨论this的用法。</p>
+
+<h3 id="toc_0">情况一：纯粹的函数调用</h3>
+
+<p>这是函数的最通常用法，属于全局性调用，因此 <code>this</code> 就代表全局对象 <code>Global</code>。</p>
+
+<p>请看下面这段代码，它的运行结果是1。</p>
+
+<pre><code class="language-javascript">function test(){
+    this.x = 1;
+    console.log(this.x);
+}
+test(); // 1
+</code></pre>
+
+<p>为了证明this就是全局对象，我对代码做一些改变：</p>
+
+<pre><code class="language-javascript">var x = 1;
+
+function test(){
+    console.log(this.x);
+}
+
+test(); // 1
+</code></pre>
+
+<p>运行结果还是1。再变一下：</p>
+
+<pre><code class="language-javascript">var x = 1;
+
+function test(){
+    this.x = 0;
+}
+
+test();
+alert(x); //0
+</code></pre>
+
+<h3 id="toc_1">情况二：作为对象方法的调用</h3>
+
+<p>函数还可以作为某个对象的方法调用，这时this就指这个上级对象。</p>
+
+<pre><code class="language-javascript">function test(){
+    alert(this.x);
+}
+
+var o = {};
+o.x = 1;
+o.m = test;
+o.m(); // 1
+</code></pre>
+
+<h3 id="toc_2">情况三 作为构造函数调用</h3>
+
+<p>所谓构造函数，就是通过这个函数生成一个新对象（object）。这时，this就指这个新对象。</p>
+
+<pre><code class="language-javascript">function test(){
+    this.x = 1;
+}
+
+var o = new test();
+alert(o.x); // 1
+</code></pre>
+
+<p>运行结果为1。为了表明这时this不是全局对象，我对代码做一些改变：</p>
+
+<pre><code class="language-javascript">var x = 2;
+
+function test(){
+    this.x = 1;
+}
+
+var o = new test();
+alert(x); //2
+</code></pre>
+
+<p>运行结果为2，表明全局变量x的值根本没变。</p>
+
+<h3 id="toc_3">情况四 apply调用</h3>
+
+<p><code>apply()</code> 是函数对象的一个方法，它的作用是改变函数的调用对象，它的第一个参数就表示改变后的调用这个函数的对象。因此，this指的就是这第一个参数。</p>
+
+<pre><code class="language-javascript">var x = 0;
+
+function test(){
+    alert(this.x);
+}
+
+var o={};
+o.x = 1;
+o.m = test;
+o.m.apply(); //0
+</code></pre>
+
+<p><code>apply()</code> 的参数为空时，默认调用全局对象。因此，这时的运行结果为0，证明this指的是全局对象。</p>
+
+<p>如果把最后一行代码修改为：</p>
+
+<pre><code class="language-javascript">o.m.apply(o); //1
+</code></pre>
+
+<p>运行结果就变成了1，证明了这时this代表的是对象o。</p>
+  
+  </article>
+</section>
+<br><br><br>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>
