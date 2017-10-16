@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="shortcut icon" type="image/x-icon" href="asset/favicon.ico">
+  <title>
+      
+      JavaScript 中的 || 和 && - 69as
+    
+  </title>
+  <link rel="stylesheet" href="asset/site.css">
+</head>
+<body>
+  
+      </ul>
+    </div>
+   <section>
+  <p>
+    <a href="/" class="back">← Back</a>
+  </p>
+  <p>
+    <small>2017/10/16</small>
+  </p>
+  <h1>
+    JavaScript 中的 || 和 &&
+  </h1>
+
+  <article>
+    <blockquote>
+<p>&amp;&amp; 和 || 运算符的返回值并不一定是布尔类型，而是两个操作数其中的一个的值。 --ES5规范11.11节</p>
+</blockquote>
+
+<p>在 JavaScript 中，<code>||</code> 和 <code>&amp;&amp;</code> 的返回值并不是布尔值。</p>
+
+<p>它们的返回值是两个操作数中的一个（仅且一个），即选择两个操作数中的一个，然后返回他的值。</p>
+
+<p>例如：</p>
+
+<pre><code class="language-javascript">var a = 42;
+var b = &#39;abc&#39;;
+var c = null;
+
+a || b; // 42
+a &amp;&amp; b; // &#39;abc&#39;
+
+c || b; // &#39;abc&#39;
+c &amp;&amp; b; // null
+</code></pre>
+
+<p>在C和PHP中，上例的结果是 <code>true</code> 或 <code>false</code>。在 JavaScript（以及 Python 和 Ruby） 中却是某个操作数的值。</p>
+
+<p>|| 和 &amp;&amp; 首先会对第一个操作数执行条件判断，如果其不是布尔值，先进行 ToBoolean 强制类型转换，然后再执行条件判断。</p>
+
+<p>对于 || 来说，如果条件判断结果为 true，就返回第一个操作数的值，如果为 false 就返回第二个操作数的值。</p>
+
+<p>&amp;&amp; 则相反，如果条件判断结果为 false，就返回第二个操作数的值，如果为 true 就返回第一个操作数的值。</p>
+
+<p>换一个角度来理解：</p>
+
+<pre><code class="language-javascript">a || b; 
+// 大致相当于
+a ? a : b;
+
+a &amp;&amp; b;
+// 大致相当于
+b ? a : b;
+</code></pre>
+
+<p>之所以说 <code>a || b</code> 与 <code>a ? a : b</code> 大致相当，是因为他们返回结果虽然相同但是却有一个细微的差别。在 <code>a ? a : b</code> 中，如果a是一个复杂一些的表达式（比如有副作用的函数调用等），他有可能被执行两次（如果第一次结果为真）。而在 <code>a || b</code> 中a只执行一次，其结果用于条件判断和返回结果（如果适用的话）。</p>
+
+<pre><code class="language-javascript">function foo(a,b) {
+    a = a || &#39;Hello&#39;; // 又被称为 C# 的控制合并运算符的 JavaScript 版本
+    b = b || &#39;World&#39;;
+    console.log(a + &#39; &#39; + b);
+}
+
+foo(); // &#39;Hello World&#39;
+foo(&#39;yeah&#39;, &#39;yeah&#39;); // &#39;yeah yeah&#39;
+
+foo(&#39;hi&#39;); // &#39;hi World&#39;
+</code></pre>
+  
+  </article>
+</section>
+<br><br><br>    <br>
+  <footer>
+    E-mail me at: <a href="mailto:go_songs@163.com">go_songs@163.com</a>.
+  </footer>
+</body>
+</html>
